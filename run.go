@@ -11,6 +11,8 @@ import (
 	"github.com/urfave/cli/v3"
 )
 
+const name = "perl"
+
 // Error is the package sentinel error type. Every error this wrapper emits is
 // a const of this type, so callers can compare with errors.Is.
 type Error string
@@ -47,7 +49,7 @@ func run(version string, args []string, stdin io.Reader, stdout, stderr io.Write
 	cmd.Writer = stdout
 	cmd.ErrWriter = stderr
 	if err := cmd.Run(context.Background(), args); err != nil {
-		_, _ = fmt.Fprintf(stderr, "perl: %v\n", err)
+		_, _ = fmt.Fprintf(stderr, name+": %v\n", err)
 		return 1
 	}
 	return 0
@@ -55,7 +57,7 @@ func run(version string, args []string, stdin io.Reader, stdout, stderr io.Write
 
 func newApp(version string, stdin io.Reader, stdout io.Writer) *cli.Command {
 	return &cli.Command{
-		Name:            "perl",
+		Name:            name,
 		Version:         version,
 		Usage:           "perl command wrapper for yupsh",
 		UsageText:       usageText,
